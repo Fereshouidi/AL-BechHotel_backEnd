@@ -6,7 +6,7 @@ import ChatRouter from './routes/conversation.js';
 // import Gemini from './gemini.js';
 
 const app = express();
-const port = 3002;
+const port = 3002 || process.env.PORT;
 app.use(express.json());
 app.use(cors());
 
