@@ -14,6 +14,9 @@ router.post('/add/chat', async (req, res) => {
     }
 });
 
-router.post('/getAiAnswer', handleAiAnswer)
+router.post('/getAiAnswer', async (req, res) => {
+    let { userId, message, conversationId } = req.body;
+    handleAiAnswer({userId, message, conversationId, req, res})
+})
 
 export default router;

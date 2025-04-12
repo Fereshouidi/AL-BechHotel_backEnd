@@ -15,7 +15,7 @@ export const addUser = async(req, res) => {
     }
 }
 
-export const updateUser = async (id, userData) => {
+export const updateUser = async (id, userData, req, res) => {
 
     if (!id) {
         return res.status(400).json({ error: 'User ID is required' });
@@ -38,8 +38,41 @@ export const updateUser = async (id, userData) => {
 
         console.log('Updated user:', updatedUser);
         return updatedUser;
+        
     } catch (err) {
         console.error('Error updating user:', err);
         res.status(500).json({ error: err.message });
     }
 };
+
+export const getAllUsers = async () => {
+
+    try {
+        const allUsers = await User.find();
+        return allUsers;
+    } catch (err) {
+        return err;
+    }
+
+}
+
+
+export const updateUsers = async (updatedUsers) => {
+
+    try {
+        
+        if (Array.isArray(updatedUsers) && updatedUsers.length > 0) {
+            await Promise.all(
+                updatedUsers.map(user =>
+                    User.findOneAndUpdate({ _id: user._id }, { ...user })
+                )
+            );
+        }
+        return 'the rooms has been updated successfully';
+
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+
+}

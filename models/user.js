@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-import { type } from "os";
 
-const UserSchema = mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     userName: {
         type: String,
     },
     dateOfBirth: {
-        type: String,
+        type: Date,
     },
     email: {
         type: String,
@@ -14,23 +13,20 @@ const UserSchema = mongoose.Schema({
     phone: {
         type: String,
     },
-    roomNumber: {
-        type: String,
-    },
-    checkInDate: {
-        type: String,
-    },
-    checkOutDate: {
-        type: String,
-    },
-    key: {
-        type: String,
-    },
-    conversation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Conversation',
-    }
-
+    roomsHistory: [
+        {
+            room: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'room'
+            },
+            checkInDate: {
+                type: Date,
+            },
+            checkOutDate: {
+                type: Date,
+            },
+        }
+    ]
 });
 
 const User = mongoose.model('user', UserSchema);
