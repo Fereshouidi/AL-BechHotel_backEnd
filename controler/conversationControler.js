@@ -6,6 +6,7 @@ import Gemini from "../gemini/gemini.js";
 import Room from "../models/room.js";
 import { getAllRooms, updateRooms } from "./roomController.js";
 import { getAllUsers, updateUsers } from "./userControler.js";
+import { getAllConversation } from "./conversation.js";
 
 export const handleAddChat = async (chat) => {
 
@@ -125,6 +126,10 @@ const checkSymbols = async ( {userId, message, conversationId, req, res} ) => {
     if (message.includes('<usersData/>')) {
         const allUsers = await getAllUsers();
         await handleAiAnswer({userId, message: String(allUsers), conversationId, req, res})
+    } 
+    if (message.includes('<conversations/>')) {
+        const allConversation = await getAllConversation();
+        await handleAiAnswer({userId, message: String(allConversation), conversationId, req, res})
     } 
     if (message.includes('<updatedRooms>')) {
 

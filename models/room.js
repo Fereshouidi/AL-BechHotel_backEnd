@@ -7,10 +7,10 @@ const RoomSchema = mongoose.Schema({
     },
     guestsHistory: {
         type: [{
-            guest: {
+            guest: [{
                 type: mongoose.Types.ObjectId,
                 ref: 'user'
-            },
+            }],
             ckeckInAt: {
                 type: Date,
                 default: null
