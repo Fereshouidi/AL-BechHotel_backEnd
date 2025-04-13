@@ -129,6 +129,8 @@ const checkSymbols = async ( {userId, message, conversationId, req, res} ) => {
     } 
     if (message.includes('<conversations/>')) {
         const allConversation = await getAllConversation();
+        console.log('allConversation : ' + allConversation);
+        
         await handleAiAnswer({userId, message: String(allConversation), conversationId, req, res})
     } 
     if (message.includes('<updatedRooms>')) {
